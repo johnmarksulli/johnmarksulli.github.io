@@ -3,116 +3,218 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dungeon Bar Crawler Carl | The Annapolis Ascendency</title>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
+    <title>Dungeon Carl Bar Crawler</title>
     <style>
-        :root {
-            --carl-red: #d90429;
-            --gauntlet-black: #050505;
-            --system-blue: #00f2ff;
-            --white-boxer: #f8f9fa;
-        }
-
+        /* RAW CSS - NO EXTERNAL LINKS */
         body {
             margin: 0;
-            font-family: 'Montserrat', sans-serif;
-            background-color: var(--gauntlet-black);
-            color: white;
-            /* REFINED BOXER/BLOOD BACKGROUND */
+            padding: 0;
+            background-color: #000000;
+            color: #ffffff;
+            font-family: "Arial Black", Gadget, sans-serif;
+            /* Blood-spattered boxer theme built with CSS gradients only */
             background-image: 
-                radial-gradient(rgba(217, 4, 41, 0.2) 1px, transparent 1px),
-                linear-gradient(to bottom, rgba(5, 5, 5, 0.9), rgba(5, 5, 5, 0.9)),
-                url('https://www.transparenttextures.com/patterns/carbon-fibre.png');
-            background-size: 40px 40px, 100% 100%, auto;
+                radial-gradient(circle at 20% 20%, #440000 0%, transparent 40%),
+                radial-gradient(circle at 80% 80%, #440000 0%, transparent 40%),
+                linear-gradient(45deg, #111 25%, transparent 25%),
+                linear-gradient(-45deg, #111 25%, transparent 25%);
+            background-size: 100% 100%, 100% 100%, 60px 60px, 60px 60px;
             background-attachment: fixed;
         }
 
         header {
-            background: var(--gauntlet-black);
-            border-bottom: 5px solid var(--carl-red);
+            background: #000000;
+            border-bottom: 8px solid #d90429;
             text-align: center;
-            padding-bottom: 40px;
+            padding-bottom: 30px;
         }
 
-        .hero-image {
+        .hero-img-placeholder {
             width: 100%;
-            max-height: 500px;
+            height: 400px;
+            background: #111;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        /* This will show your image if it exists, or a black box if it doesn't */
+        .hero-img-placeholder img {
+            width: 100%;
+            height: 100%;
             object-fit: cover;
-            border-bottom: 2px solid var(--system-blue);
         }
 
-        h1 { 
-            font-family: 'Bebas Neue', sans-serif; 
-            font-size: 4.5rem; 
-            margin: 20px 0 0 0; 
-            color: var(--white-boxer);
-            letter-spacing: 4px;
-            text-shadow: 4px 4px var(--carl-red);
+        h1 {
+            font-family: Impact, Haettenschweiler, "Franklin Gothic Bold", Charcoal, sans-serif;
+            font-size: 4rem;
+            margin: 20px 0 0 0;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: #ffffff;
+            text-shadow: 4px 4px #d90429;
         }
 
-        .subtitle {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 1.5rem;
-            color: var(--system-blue);
-            letter-spacing: 2px;
+        .details {
+            font-size: 1.2rem;
+            color: #00f2ff;
             margin-bottom: 20px;
-        }
-
-        .container {
-            max-width: 900px;
-            margin: -50px auto 100px;
-            padding: 50px;
-            background: rgba(10, 10, 10, 0.98);
-            border: 1px solid #333;
-            box-shadow: 0 0 50px rgba(0,0,0,1);
-            position: relative;
-            z-index: 10;
-        }
-
-        .system-msg {
-            border-left: 4px solid var(--system-blue);
-            background: rgba(0, 242, 255, 0.03);
-            padding: 30px;
-            margin-bottom: 40px;
-            line-height: 1.8;
-            font-weight: 300;
-            font-size: 1.05rem;
-        }
-
-        h2 { 
-            font-family: 'Bebas Neue', sans-serif; 
-            font-size: 2.5rem; 
-            color: var(--carl-red); 
-            border-bottom: 1px solid #333;
-            padding-bottom: 10px;
-        }
-
-        .quest-log { width: 100%; border-collapse: collapse; margin-top: 30px; }
-        .quest-log td { padding: 25px 15px; border-bottom: 1px solid #222; }
-        
-        .time { 
-            font-family: 'Bebas Neue', sans-serif; 
-            color: var(--carl-red); 
-            font-size: 1.8rem; 
-            width: 140px; 
-        }
-
-        .loc-title { 
-            font-weight: 700; 
-            font-size: 1.2rem; 
-            display: block; 
-            margin-bottom: 5px; 
-            color: var(--white-boxer);
             text-transform: uppercase;
         }
 
-        .objective {
-            color: #aaa;
-            font-size: 0.95rem;
+        .content-box {
+            max-width: 800px;
+            margin: -40px auto 60px;
+            padding: 40px;
+            background: rgba(10, 10, 10, 0.95);
+            border: 2px solid #333;
+            box-shadow: 0 0 50px rgba(0,0,0,1);
+            position: relative;
         }
 
-        .btn {
+        .ai-msg {
+            border-left: 6px solid #00f2ff;
+            background: rgba(0, 242, 255, 0.05);
+            padding: 25px;
+            margin-bottom: 40px;
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            font-size: 1.1rem;
+        }
+
+        h2 {
+            font-family: Impact, sans-serif;
+            color: #d90429;
+            font-size: 2.5rem;
+            border-bottom: 2px solid #d90429;
+            margin-top: 0;
+        }
+
+        .schedule {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .schedule td {
+            padding: 20px 10px;
+            border-bottom: 1px solid #222;
+            vertical-align: top;
+        }
+
+        .time-slot {
+            color: #d90429;
+            font-size: 1.5rem;
+            width: 150px;
+        }
+
+        .location-info {
+            font-size: 1.1rem;
+        }
+
+        .loc-name {
+            display: block;
+            font-weight: bold;
+            color: #fff;
+            margin-bottom: 5px;
+        }
+
+        .btn-buy {
             display: block;
             width: fit-content;
-            margin: 50px auto;
-            background: var(--carl
+            margin: 40px auto 0;
+            background: #d90429;
+            color: #fff;
+            padding: 20px 60px;
+            text-decoration: none;
+            font-size: 1.8rem;
+            font-family: Impact, sans-serif;
+            border: 3px solid #00f2ff;
+            transition: 0.2s;
+        }
+
+        .btn-buy:hover {
+            background: #fff;
+            color: #000;
+            transform: scale(1.05);
+        }
+
+        .footer-stats {
+            text-align: center;
+            padding: 40px;
+            color: #00f2ff;
+            font-size: 1.2rem;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="hero-img-placeholder">
+        <img src="donut-banner.png" alt="[DONUT LASER GRAPHIC]">
+    </div>
+    <h1>Dungeon Carl Bar Crawler</h1>
+    <div class="details">The Annapolis Ascendency | July 25 | 3PM - 8PM</div>
+</header>
+
+<div class="content-box">
+    <div class="ai-msg">
+        <strong>WELCOME, CRAWLERS!</strong><br><br>
+        The System has cleared a path through the heart of Downtown Annapolis for an epic, one-of-a-kind social adventure. We’re bringing the world of Dungeon Crawler Carl to life for one afternoon of incredible drinks, great company, and legendary challenges!<br><br>
+        On July 25th, join 50 fellow fans as we navigate the "Annapolis Sector." Whether you're here to test your knowledge in Trivia, show off your best gear in the Costume Contest, or just enjoy the themed "Boss Battle" drinks, there’s a place in the party for you.<br><br>
+        Space is limited to 50 participants to keep the experience elite and organized. Grab your Crawler Pass, equip your favorite outfit, and let’s make some memories in the dungeon!
+    </div>
+
+    <h2>Quest Log</h2>
+    <table class="schedule">
+        <tr>
+            <td class="time-slot">3:00 PM</td>
+            <td class="location-info">
+                <span class="loc-name">The Desperado Club (Middleton Tavern)</span>
+                Objective: DCC Trivia Level 1 & Registration
+            </td>
+        </tr>
+        <tr>
+            <td class="time-slot">4:30 PM</td>
+            <td class="location-info">
+                <span class="loc-name">The Hunting Grounds (Dry 85)</span>
+                Objective: The Grind: Boss Battles & Crafting Tables
+            </td>
+        </tr>
+        <tr>
+            <td class="schedule-row time-slot">6:30 PM</td>
+            <td class="location-info">
+                <span class="loc-name">The Grand Stage (Ram's Head On Stage)</span>
+                Objective: The Masquerade: Costume Contest
+            </td>
+        </tr>
+        <tr>
+            <td class="time-slot">7:00 PM</td>
+            <td class="location-info">
+                <span class="loc-name">The Pineapple Cabaret (Stan & Joe's)</span>
+                Objective: [SECRET EVENT] Final Boss Showdown
+            </td>
+        </tr>
+    </table>
+
+    <a href="#" class="btn-buy">Acquire Crawler Pass</a>
+</div>
+
+<div class="footer-stats">
+    50/50 SLOTS REMAINING — <span id="timer">T-MINUS: 87D 04H</span>
+</div>
+
+<script>
+    // Just a static update for the POC timer
+    const target = new Date("July 25, 2026 15:00:00").getTime();
+    setInterval(() => {
+        const now = new Date().getTime();
+        const diff = target - now;
+        const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        document.getElementById("timer").innerHTML = `T-MINUS: ${d}D ${h}H UNTIL SECTOR OPENING`;
+    }, 1000);
+</script>
+
+</body>
+</html>
