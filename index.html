@@ -3,14 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Annapolis Ascendency | Dungeon Carl Bar Crawler</title>
+    <title>Dungeon Carl Bar Crawler: The Annapolis Ascendency</title>
     <style>
         :root {
-            --gauntlet-black: #000000;
             --carl-red: #cc0000;
+            --gauntlet-black: #000000;
             --system-blue: #00f2ff;
-            --boxer-white: #ffffff;
-            --text-glow: 0 0 10px rgba(0, 242, 255, 0.7);
         }
 
         body {
@@ -18,140 +16,89 @@
             font-family: 'Courier New', Courier, monospace;
             background-color: var(--gauntlet-black);
             color: white;
-            
-            /* REPEATING BOOK COVER GRAPHC ON SIDES */
-            /* In a real scenario, you would have a 'book-cover-pattern.png' file. */
-            /* Since I can't generate that image directly, this is a placeholder URL. */
+            /* Side Pattern: White Boxers with Red Hearts + Blood Spatters */
             background-image: 
-                url('https://via.placeholder.com/150x200/cc0000/ffffff?text=DCC+Cover+Left'), /* Side 1 */
-                url('https://via.placeholder.com/150x200/cc0000/ffffff?text=DCC+Cover+Right'); /* Side 2 */
-            background-position: left top, right top;
-            background-repeat: repeat-y;
-            background-size: 15% auto; /* Covers 15% on each side */
+                radial-gradient(circle at 20% 30%, rgba(204, 0, 0, 0.4) 0%, transparent 20%), 
+                radial-gradient(circle at 80% 70%, rgba(128, 0, 0, 0.5) 0%, transparent 25%),
+                url('https://img.icons8.com/ios-filled/50/cc0000/like.png'), /* Simple heart fallback */
+                linear-gradient(white, white); 
+            background-size: 100% 100%, 100% 100%, 30px 30px, 80px 80px;
+            background-position: center, center, 40px 40px, 15px 15px;
+            background-repeat: no-repeat, no-repeat, repeat, repeat;
             background-attachment: fixed;
         }
 
-        /* BANNER SECTION */
+        /* Banner styling */
         .hero-banner {
             width: 100%;
-            height: 400px;
             background: var(--gauntlet-black);
-            position: relative;
-            overflow: hidden;
-            border-bottom: 5px solid var(--carl-red);
-            /* SPIKEY GAUNTLET BOTTOM */
-            clip-path: polygon(0% 0%, 100% 0%, 100% 80%, 95% 100%, 90% 80%, 85% 100%, 80% 80%, 75% 100%, 70% 80%, 65% 100%, 60% 80%, 55% 100%, 50% 80%, 45% 100%, 40% 80%, 35% 100%, 30% 80%, 25% 100%, 20% 80%, 15% 100%, 10% 80%, 5% 100%, 0% 80%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        /* The Princess Donut Image */
-        .banner-graphic {
-            height: 100%;
-            width: auto;
-            position: absolute;
-            top: 0;
-            object-fit: contain; /* ensures the whole image fits without stretching */
-            opacity: 0.9;
-        }
-
-        .hero-text {
-            position: relative;
-            z-index: 2;
+            border-bottom: 6px solid var(--carl-red);
             text-align: center;
-            width: 90%;
-            background: rgba(0, 0, 0, 0.6); /* Dark background behind text for readability */
-            padding: 20px;
-            border-radius: 10px;
+            position: relative;
         }
 
-        .hero-text h1 {
-            font-size: 3.5rem;
-            text-shadow: 3px 3px 0px var(--carl-red), var(--text-glow);
-            margin: 0;
-            text-transform: uppercase;
+        .hero-banner img {
+            width: 100%;
+            max-height: 450px;
+            object-fit: cover;
+            display: block;
         }
 
-        .hero-text p {
-            font-size: 1.5rem;
-            color: var(--system-blue);
-            text-shadow: var(--text-glow);
-            margin: 5px 0 0 0;
-        }
-
-        /* CONTENT CONTAINER */
         .container {
             max-width: 800px;
-            margin: -40px auto 50px;
+            margin: 0 auto;
             padding: 40px;
             background: rgba(0, 0, 0, 0.95);
-            border: 2px solid var(--system-blue);
-            box-shadow: 0 0 30px rgba(0, 242, 255, 0.3);
+            border: 3px solid var(--system-blue);
+            box-shadow: 0 0 40px rgba(0, 242, 255, 0.2);
             position: relative;
-            z-index: 10;
+            z-index: 5;
         }
 
         .system-msg {
-            border-left: 4px solid var(--system-blue);
+            border-left: 5px solid var(--system-blue);
             background: rgba(0, 242, 255, 0.05);
-            padding: 20px;
+            padding: 25px;
             margin-bottom: 30px;
-            line-height: 1.7;
-            color: #ddd;
+            line-height: 1.6;
         }
 
-        h2 {
-            color: var(--carl-red);
-            text-transform: uppercase;
-            border-bottom: 2px solid var(--carl-red);
-            padding-bottom: 10px;
-            margin-top: 40px;
-            font-size: 2rem;
-        }
+        h1 { font-size: 2.5rem; text-transform: uppercase; margin-top: 10px; color: var(--carl-red); }
+        h2 { text-transform: uppercase; border-bottom: 2px solid var(--carl-red); }
 
-        /* ITINERARY (QUEST LOG) */
-        .quest-log { width: 100%; border-collapse: collapse; }
-        .quest-log td { padding: 20px; border-bottom: 1px solid #333; }
-        .time { color: var(--carl-red); font-weight: bold; width: 120px; font-size: 1.2rem;}
-        .loc { font-weight: bold; color: var(--boxer-white); display: block; font-size: 1.1rem; }
+        .quest-log { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        .quest-log td { padding: 20px; border-bottom: 1px solid #333; vertical-align: top; }
+        .time { color: var(--carl-red); font-weight: bold; width: 120px; font-size: 1.2rem; }
+        .loc { font-weight: bold; font-size: 1.1rem; color: #fff; display: block; margin-bottom: 5px; }
 
-        /* CTA BUTTON */
         .btn {
             display: block;
             width: fit-content;
-            margin: 50px auto;
+            margin: 40px auto;
             background: var(--carl-red);
             color: white;
-            padding: 20px 40px;
+            padding: 20px 50px;
             text-decoration: none;
-            font-weight: bold;
-            font-size: 1.3rem;
+            font-weight: 900;
+            font-size: 1.4rem;
             border: 2px solid var(--system-blue);
-            text-transform: uppercase;
-            transition: 0.3s;
-        }
-        .btn:hover { background: white; color: black; box-shadow: 0 0 15px var(--system-blue); }
-
-        /* Mobile responsiveness */
-        @media (max-width: 768px) {
-            body { background-image: none; /* Removes side graphics on small screens */ }
-            .hero-text h1 { font-size: 2rem; }
-            .hero-banner { height: 250px; }
-            .container { padding: 20px; margin-top: -20px; }
         }
 
+        .status-bar {
+            text-align: center;
+            color: var(--system-blue);
+            border: 1px dashed var(--system-blue);
+            padding: 20px;
+            margin-top: 40px;
+        }
     </style>
 </head>
 <body>
 
 <div class="hero-banner">
-    <img src="donut-shocks-carl.png" class="banner-graphic" alt="System Message Graphic">
-    
-    <div class="hero-text">
-        <h1>THE ANNAPOLIS ASCENDENCY</h1>
-        <p>JULY 25th | 3PM - 8PM | DOWNTOWN</p>
-    </div>
+    <img src="donut-banner.png" alt="PUB CRAWLER CARL">
+    <h1>Dungeon Carl Bar Crawler</h1>
+    <p>THE ANNAPOLIS ASCENDENCY | JULY 25th | 3:00 PM - 8:00 PM</p>
 </div>
 
 <div class="container">
@@ -162,7 +109,7 @@
         Space is limited to 50 participants to keep the experience elite and organized. Grab your Crawler Pass, equip your favorite outfit, and let’s make some memories in the dungeon!
     </div>
 
-    <h2>Current Quest Log</h2>
+    <h2>Quest Log</h2>
     <table class="quest-log">
         <tr>
             <td class="time">3:00 PM</td>
@@ -188,14 +135,30 @@
         <tr>
             <td class="time">7:00 PM</td>
             <td>
-                <span class="loc">The Pineapple Cabaret (Stan & Joe's)</span>
+                <span class="loc">The Pineapple Cabaret (Stan & Joe's Saloon)</span>
                 Objective: [SECRET EVENT] The Final Boss Showdown.
             </td>
         </tr>
     </table>
 
+    <div class="status-bar">
+        STATUS: 50/50 CRAWLERS REMAINING<br>
+        <span id="countdown">T-MINUS: Loading Sector Data...</span>
+    </div>
+
     <a href="#" class="btn">[ ACQUIRE CRAWLER PASS ]</a>
 </div>
+
+<script>
+    const target = new Date("July 25, 2026 15:00:00").getTime();
+    setInterval(() => {
+        const now = new Date().getTime();
+        const diff = target - now;
+        const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        document.getElementById("countdown").innerHTML = `T-MINUS: ${d}D ${h}H UNTIL SECTOR OPENING`;
+    }, 1000);
+</script>
 
 </body>
 </html>
