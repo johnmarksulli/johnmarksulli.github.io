@@ -117,134 +117,14 @@
             font-size: 1.2rem;
             font-weight: bold;
             color: #fff;
-        }
-
-        /* NEW BOX STYLING */
-        .status-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            margin-top: 40px;
-        }
-
-        .info-box {
-            background: rgba(0, 0, 0, 0.8);
-            border: 1px solid #00f2ff;
-            padding: 20px;
-            text-align: center;
-            font-family: 'Courier New', Courier, monospace;
-        }
-
-        .info-label {
             display: block;
-            color: #d90429;
-            font-size: 0.9rem;
             margin-bottom: 5px;
-            text-transform: uppercase;
         }
 
-        .info-value {
-            color: #00f2ff;
-            font-size: 1.2rem;
-            font-weight: bold;
+        .loc-desc {
+            font-family: Arial, sans-serif;
+            color: #ccc;
+            font-size: 1rem;
         }
 
-        .btn-buy {
-            display: block;
-            width: fit-content;
-            margin: 40px auto 0;
-            background: #d90429;
-            color: #fff;
-            padding: 20px 60px;
-            text-decoration: none;
-            font-size: 1.8rem;
-            font-family: Impact, sans-serif;
-            border: 3px solid #00f2ff;
-            transition: 0.2s;
-        }
-
-        .btn-buy:hover {
-            background: #fff;
-            color: #000;
-            transform: scale(1.05);
-        }
-
-        @media (max-width: 600px) {
-            .status-container { grid-template-columns: 1fr; }
-        }
-    </style>
-</head>
-<body>
-
-<header>
-    <div class="hero-img-placeholder">
-        <img src="https://images.matt-wiley.com/donut-lasers-banner.jpg" alt="Princess Donut Lasers">
-    </div>
-    <h1>Dungeon Bar Crawler Carl</h1>
-    <div class="details">The Annapolis Ascendency | July 25 | 3PM - 8PM</div>
-</header>
-
-<div class="content-box">
-    <div class="ai-msg">
-        <strong>WELCOME, CRAWLERS!</strong><br><br>
-        The System has cleared a path through the heart of Downtown Annapolis for an epic, one-of-a-kind social adventure. We’re bringing the world of Dungeon Crawler Carl to life for one afternoon of incredible drinks, great company, and legendary challenges!<br><br>
-        On July 25th, join 50 fellow fans as we navigate the "Annapolis Sector." Whether you're here to test your knowledge in Trivia, show off your best gear in the Costume Contest, or just enjoy the themed "Boss Battle" drinks, there’s a place in the party for you.<br><br>
-        Space is limited to 50 participants to keep the experience elite and organized. Grab your Crawler Pass, equip your favorite outfit, and let’s make some memories in the dungeon!
-    </div>
-
-    <h2>Quest Log</h2>
-    <table class="schedule">
-        <tr>
-            <td class="time-slot">3:00 PM</td>
-            <td class="location-info">
-                <span class="loc-name">The Desperado Club (Middleton Tavern)</span>
-            </td>
-        </tr>
-        <tr>
-            <td class="time-slot">4:30 PM</td>
-            <td class="location-info">
-                <span class="loc-name">The Hunting Grounds (Dry 85)</span>
-            </td>
-        </tr>
-        <tr>
-            <td class="time-slot">6:30 PM</td>
-            <td class="location-info">
-                <span class="loc-name">The Grand Stage (Ram's Head On Stage)</span>
-            </td>
-        </tr>
-        <tr>
-            <td class="time-slot">7:00 PM</td>
-            <td class="location-info">
-                <span class="loc-name">The Pineapple Cabaret (Stan & Joe's)</span>
-            </td>
-        </tr>
-    </table>
-
-    <div class="status-container">
-        <div class="info-box">
-            <span class="info-label">Party Capacity</span>
-            <span class="info-value">50/50 CRAWLERS REMAINING</span>
-        </div>
-        <div class="info-box">
-            <span class="info-label">Sector Stability</span>
-            <span class="info-value" id="timer">T-MINUS: 00D 00H UNTIL FLOOR COLLAPSE</span>
-        </div>
-    </div>
-
-    <a href="#" class="btn-buy">Acquire Crawler Pass</a>
-</div>
-
-<script>
-    const target = new Date("July 25, 2026 15:00:00").getTime();
-    setInterval(() => {
-        const now = new Date().getTime();
-        const diff = target - now;
-        const d = Math.floor(diff / (1000 * 60 * 60 * 24));
-        const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-        document.getElementById("timer").innerHTML = `T-MINUS: ${d}D ${h}H ${m}M UNTIL FLOOR COLLAPSE`;
-    }, 1000);
-</script>
-
-</body>
-</html>
+        .status
