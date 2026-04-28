@@ -7,118 +7,78 @@
     <style>
         :root {
             --gauntlet-black: #000000;
-            --boxer-white: #ffffff;
             --carl-red: #cc0000;       /* Bloody red */
-            --blood-dark: #800000;
             --system-blue: #00f2ff;
+            --boxer-white: #ffffff;
         }
 
         body {
             margin: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Courier New', Courier, monospace;
             background-color: var(--gauntlet-black);
-            
-            /* COMPLEX CSS BACKGROUND: Black with Blood-Spattered Boxers */
-            background-image: 
-                /* Layer 1: Blood Spatter (Chaotic Red Gradients) */
-                radial-gradient(ellipse at 10% 90%, var(--blood-dark) 0%, transparent 15%),
-                radial-gradient(ellipse at 80% 20%, var(--carl-red) 0%, transparent 20%),
-                radial-gradient(circle at 45% 55%, var(--blood-dark) 0%, transparent 10%),
-                
-                /* Layer 2: White Boxer Shorts Pattern */
-                linear-gradient(rgba(255,255,255,1), rgba(255,255,255,1)), /* Solid White Box */
-                
-                /* Layer 3: Few Scattered Red Hearts (Masked) */
-                radial-gradient(circle at 10px 10px, var(--carl-red) 10px, transparent 11px),
-                radial-gradient(circle at 30px 10px, var(--carl-red) 10px, transparent 11px),
-                conic-gradient(from 210deg at 20px 15px, var(--carl-red) 60deg, transparent 61deg);
-
-            /* Layer Positioning and Sizing */
-            background-position: 
-                0 0, 0 0, 0 0,         /* Blood Spatters */
-                50px 50px,             /* Boxer Location */
-                50px 50px, 50px 50px, 50px 50px; /* Hearts (same relative pos) */
-            
-            background-size: 
-                100% 100%, 100% 100%, 100% 100%, /* Spatters (full screen) */
-                100px 100px,                     /* Boxer Shorts Size */
-                100px 100px, 100px 100px, 100px 100px; /* Hearts Size */
-
-            background-repeat: 
-                no-repeat, no-repeat, no-repeat, /* Spatters */
-                no-repeat, no-repeat, no-repeat, no-repeat; /* Shorts (Repeat this for whole pattern if desired: repeat) */
-            
-            /* Set to 'repeat' if you want a wallpaper of blood-spattered shorts. 
-               Left as 'no-repeat' so a few shorts float on the black. */
-            background-repeat: repeat; 
-            
-            color: white; /* Standard text on black */
+            color: white;
+            /* Simple, reliable dark gradient to ensure the page isn't blank */
+            background-image: linear-gradient(180deg, #1a0000 0%, #000000 100%);
+            background-attachment: fixed;
         }
 
         header {
-            background: rgba(0,0,0,0.9);
+            background: var(--gauntlet-black);
             color: white;
             padding: 50px 20px;
             text-align: center;
-            /* GAUNTLET EFFECT */
+            /* The Spikey Effect */
             clip-path: polygon(0% 0%, 100% 0%, 100% 85%, 95% 100%, 90% 85%, 85% 100%, 80% 85%, 75% 100%, 70% 85%, 65% 100%, 60% 85%, 55% 100%, 50% 85%, 45% 100%, 40% 85%, 35% 100%, 30% 85%, 25% 100%, 20% 85%, 15% 100%, 10% 85%, 5% 100%, 0% 85%);
             border-bottom: 4px solid var(--carl-red);
         }
 
         .container {
-            max-width: 850px;
+            max-width: 800px;
             margin: 0 auto;
-            padding: 40px;
-            background: rgba(0, 0, 0, 0.95); /* Near solid black container */
-            border-left: 10px solid var(--gauntlet-black);
-            border-right: 10px solid var(--gauntlet-black);
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-            margin-top: -20px;
+            padding: 30px;
+            background: rgba(20, 20, 20, 0.9);
+            border: 2px solid var(--carl-red);
+            box-shadow: 0 0 20px rgba(204, 0, 0, 0.4);
+            margin-top: 20px;
+            margin-bottom: 50px;
         }
 
-        h1 { font-size: 2.8rem; margin: 0; text-transform: uppercase; letter-spacing: -1px; }
-        h2 { text-transform: uppercase; border-bottom: 2px solid var(--carl-red); padding-bottom: 10px; margin-top: 40px;}
-        
-        .system-msg { 
-            background: rgba(255,255,255,0.05);
-            border-left: 5px solid var(--system-blue); 
-            padding: 25px; 
-            font-size: 1.1rem;
-            line-height: 1.7;
-            margin-bottom: 30px; 
-            color: #ddd;
+        .system-msg {
+            border-left: 4px solid var(--system-blue);
+            background: rgba(0, 242, 255, 0.05);
+            padding: 20px;
+            margin-bottom: 30px;
+            line-height: 1.6;
         }
-        
-        .quest-log { width: 100%; border-collapse: collapse; margin-top: 20px; color: white; }
-        .quest-log th { background: var(--gauntlet-black); color: var(--system-blue); padding: 15px; text-align: left; }
-        .quest-log td { padding: 20px; border-bottom: 1px solid rgba(255,255,255,0.1); }
-        .time { font-weight: bold; color: var(--carl-red); font-size: 1.2rem; white-space: nowrap;}
-        .loc-name { font-weight: 800; font-size: 1.1rem; display: block; color: var(--white-boxer);}
+
+        h1 { color: var(--boxer-white); text-transform: uppercase; margin: 0; font-size: 2.2rem; }
+        h2 { color: var(--carl-red); text-transform: uppercase; border-bottom: 1px solid var(--carl-red); }
+
+        .quest-log { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        .quest-log td { padding: 15px; border-bottom: 1px solid #333; vertical-align: top; }
+        .time { color: var(--carl-red); font-weight: bold; width: 100px; }
+        .loc { font-weight: bold; color: var(--boxer-white); display: block; margin-bottom: 5px; }
 
         .btn {
-            display: inline-block;
+            display: block;
+            width: fit-content;
+            margin: 40px auto;
             background: var(--carl-red);
             color: white;
-            padding: 20px 50px;
+            padding: 20px 40px;
             text-decoration: none;
-            font-weight: 900;
-            font-size: 1.3rem;
-            margin-top: 40px;
-            border-radius: 5px;
-            box-shadow: 0 5px 0px var(--blood-dark);
-            transition: 0.2s;
-            text-transform: uppercase;
+            font-weight: bold;
+            border-radius: 4px;
+            border: 2px solid transparent;
         }
-        .btn:hover { transform: translateY(3px); box-shadow: 0 2px 0px var(--blood-dark); background: white; color: black; }
+        .btn:hover { background: white; color: black; border: 2px solid var(--carl-red); }
 
         .status-bar {
-            background: #111;
-            color: var(--system-blue);
-            padding: 20px;
             text-align: center;
-            font-family: 'Courier New', Courier, monospace;
-            margin-top: 40px;
-            border: 1px solid var(--system-blue);
+            color: var(--system-blue);
+            border: 1px dashed var(--system-blue);
+            padding: 15px;
+            margin-top: 30px;
         }
     </style>
 </head>
@@ -126,70 +86,65 @@
 
 <header>
     <h1>The Annapolis Ascendency</h1>
-    <p>Dungeon Carl Bar Crawler | July 25th | 3:00 PM - 8:00 PM</p>
+    <p>Dungeon Carl Bar Crawler | July 25th | 3PM - 8PM</p>
 </header>
 
 <div class="container">
     <div class="system-msg">
         <strong>WELCOME, CRAWLERS!</strong><br><br>
-        The System has cleared a path through the heart of Downtown Annapolis for an epic, one-of-a-kind social adventure. We’re bringing the world of <em>Dungeon Crawler Carl</em> to life for one afternoon of incredible drinks, great company, and legendary challenges!<br><br>
-        On <strong>July 25th</strong>, join 50 fellow fans as we navigate the "Annapolis Sector." Whether you're here to test your knowledge in Trivia, show off your best gear in the Costume Contest, or just enjoy the themed "Boss Battle" drinks, there’s a place in the party for you.<br><br>
+        The System has cleared a path through the heart of Downtown Annapolis for an epic, one-of-a-kind social adventure. We’re bringing the world of Dungeon Crawler Carl to life for one afternoon of incredible drinks, great company, and legendary challenges!<br><br>
+        On July 25th, join 50 fellow fans as we navigate the "Annapolis Sector." Whether you're here to test your knowledge in Trivia, show off your best gear in the Costume Contest, or just enjoy the themed "Boss Battle" drinks, there’s a place in the party for you.<br><br>
         Space is limited to 50 participants to keep the experience elite and organized. Grab your Crawler Pass, equip your favorite outfit, and let’s make some memories in the dungeon!
     </div>
 
-    <h2>Quest Log: The Itinerary</h2>
+    <h2>Current Quest Log</h2>
     <table class="quest-log">
-        <thead>
-            <tr>
-                <th>Time</th>
-                <th>Zone</th>
-                <th>Objective</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td class="time">3:00 PM</td>
-                <td><span class="loc-name">The Desperado Club</span>(Middleton Tavern)</td>
-                <td><strong>DCC Trivia Level 1:</strong> Registration and Intel Gathering.</td>
-            </tr>
-            <tr>
-                <td class="time">4:30 PM</td>
-                <td><span class="loc-name">The Hunting Grounds</span>(Dry 85)</td>
-                <td><strong>The Grind:</strong> Boss Battles & Crafting Tables.</td>
-            </tr>
-            <tr>
-                <td class="time">6:30 PM</td>
-                <td><span class="loc-name">The Grand Stage</span>(Ram's Head On Stage)</td>
-                <td><strong>The Masquerade:</strong> Costume Contest and Gear Check.</td>
-            </tr>
-            <tr>
-                <td class="time">7:00 PM</td>
-                <td><span class="loc-name">The Pineapple Cabaret</span>(Stan & Joe's Saloon)</td>
-                <td><strong>[SECRET EVENT]</strong> The Final Boss Showdown.</td>
-            </tr>
-        </tbody>
+        <tr>
+            <td class="time">3:00 PM</td>
+            <td>
+                <span class="loc">The Desperado Club (Middleton Tavern)</span>
+                Objective: DCC Trivia Level 1 & Registration.
+            </td>
+        </tr>
+        <tr>
+            <td class="time">4:30 PM</td>
+            <td>
+                <span class="loc">The Hunting Grounds (Dry 85)</span>
+                Objective: The Grind: Boss Battles & Crafting Tables.
+            </td>
+        </tr>
+        <tr>
+            <td class="time">6:30 PM</td>
+            <td>
+                <span class="loc">The Grand Stage (Ram's Head On Stage)</span>
+                Objective: The Masquerade (Costume Contest).
+            </td>
+        </tr>
+        <tr>
+            <td class="time">7:00 PM</td>
+            <td>
+                <span class="loc">The Pineapple Cabaret (Stan & Joe's Saloon)</span>
+                Objective: [SECRET EVENT] The Final Boss Showdown.
+            </td>
+        </tr>
     </table>
 
     <div class="status-bar">
-        STATUS: 50/50 CRAWLERS REMAINING <br>
-        <span id="timer">T-MINUS: Loading Sector Data...</span>
+        STATUS: 50/50 CRAWLERS REMAINING<br>
+        <span id="countdown">Loading System Data...</span>
     </div>
 
-    <div style="text-align: center;">
-        <a href="#" class="btn">[ Acquire Crawler Pass ]</a>
-    </div>
+    <a href="#" class="btn">[ ACQUIRE CRAWLER PASS ]</a>
 </div>
 
 <script>
-    // Countdown to July 25, 2026 at 3:00 PM
-    const targetDate = new Date("July 25, 2026 15:00:00").getTime();
-    setInterval(function() {
+    const target = new Date("July 25, 2026 15:00:00").getTime();
+    setInterval(() => {
         const now = new Date().getTime();
-        const diff = targetDate - now;
-        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-        document.getElementById("timer").innerHTML = `T-MINUS: ${days}D ${hours}H ${mins}M UNTIL SECTOR OPENING`;
+        const diff = target - now;
+        const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        document.getElementById("countdown").innerHTML = `T-MINUS: ${d}D ${h}H UNTIL SECTOR OPENING`;
     }, 1000);
 </script>
 
