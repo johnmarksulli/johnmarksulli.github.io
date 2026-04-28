@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Annapolis Ascendency | DCC Bar Crawler</title>
+    <title>The Annapolis Ascendency | Dungeon Carl Bar Crawler</title>
     <style>
         :root {
             --gauntlet-black: #000000;
             --carl-red: #cc0000;
             --system-blue: #00f2ff;
             --boxer-white: #ffffff;
+            --text-glow: 0 0 10px rgba(0, 242, 255, 0.7);
         }
 
         body {
@@ -17,55 +18,78 @@
             font-family: 'Courier New', Courier, monospace;
             background-color: var(--gauntlet-black);
             color: white;
-            /* Stable Heart Pattern */
-            background-image: radial-gradient(var(--carl-red) 15%, transparent 16%);
-            background-size: 60px 60px;
+            
+            /* REPEATING BOOK COVER GRAPHC ON SIDES */
+            /* In a real scenario, you would have a 'book-cover-pattern.png' file. */
+            /* Since I can't generate that image directly, this is a placeholder URL. */
+            background-image: 
+                url('https://via.placeholder.com/150x200/cc0000/ffffff?text=DCC+Cover+Left'), /* Side 1 */
+                url('https://via.placeholder.com/150x200/cc0000/ffffff?text=DCC+Cover+Right'); /* Side 2 */
+            background-position: left top, right top;
+            background-repeat: repeat-y;
+            background-size: 15% auto; /* Covers 15% on each side */
             background-attachment: fixed;
         }
 
-        /* THE NEW FUN BANNER */
+        /* BANNER SECTION */
         .hero-banner {
             width: 100%;
+            height: 400px;
             background: var(--gauntlet-black);
             position: relative;
             overflow: hidden;
             border-bottom: 5px solid var(--carl-red);
-            /* SPIKEY BOTTOM */
+            /* SPIKEY GAUNTLET BOTTOM */
             clip-path: polygon(0% 0%, 100% 0%, 100% 80%, 95% 100%, 90% 80%, 85% 100%, 80% 80%, 75% 100%, 70% 80%, 65% 100%, 60% 80%, 55% 100%, 50% 80%, 45% 100%, 40% 80%, 35% 100%, 30% 80%, 25% 100%, 20% 80%, 15% 100%, 10% 80%, 5% 100%, 0% 80%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        .hero-image {
-            width: 100%;
-            height: 350px;
-            object-fit: cover;
-            opacity: 0.6; /* Makes the text on top easier to read */
-            display: block;
+        /* The Princess Donut Image */
+        .banner-graphic {
+            height: 100%;
+            width: auto;
+            position: absolute;
+            top: 0;
+            object-fit: contain; /* ensures the whole image fits without stretching */
+            opacity: 0.9;
         }
 
         .hero-text {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+            position: relative;
+            z-index: 2;
             text-align: center;
             width: 90%;
+            background: rgba(0, 0, 0, 0.6); /* Dark background behind text for readability */
+            padding: 20px;
+            border-radius: 10px;
         }
 
         .hero-text h1 {
-            font-size: 3rem;
-            text-shadow: 3px 3px 0px var(--carl-red);
+            font-size: 3.5rem;
+            text-shadow: 3px 3px 0px var(--carl-red), var(--text-glow);
             margin: 0;
+            text-transform: uppercase;
         }
 
+        .hero-text p {
+            font-size: 1.5rem;
+            color: var(--system-blue);
+            text-shadow: var(--text-glow);
+            margin: 5px 0 0 0;
+        }
+
+        /* CONTENT CONTAINER */
         .container {
             max-width: 800px;
-            margin: -30px auto 50px;
-            padding: 30px;
+            margin: -40px auto 50px;
+            padding: 40px;
             background: rgba(0, 0, 0, 0.95);
             border: 2px solid var(--system-blue);
-            box-shadow: 0 0 30px rgba(0, 242, 255, 0.2);
+            box-shadow: 0 0 30px rgba(0, 242, 255, 0.3);
             position: relative;
-            z-index: 2;
+            z-index: 10;
         }
 
         .system-msg {
@@ -73,30 +97,57 @@
             background: rgba(0, 242, 255, 0.05);
             padding: 20px;
             margin-bottom: 30px;
+            line-height: 1.7;
+            color: #ddd;
         }
 
-        .quest-log { width: 100%; border-collapse: collapse; }
-        .quest-log td { padding: 15px; border-bottom: 1px solid #333; }
-        .time { color: var(--carl-red); font-weight: bold; width: 100px; }
-        .loc { font-weight: bold; color: var(--boxer-white); display: block; }
+        h2 {
+            color: var(--carl-red);
+            text-transform: uppercase;
+            border-bottom: 2px solid var(--carl-red);
+            padding-bottom: 10px;
+            margin-top: 40px;
+            font-size: 2rem;
+        }
 
+        /* ITINERARY (QUEST LOG) */
+        .quest-log { width: 100%; border-collapse: collapse; }
+        .quest-log td { padding: 20px; border-bottom: 1px solid #333; }
+        .time { color: var(--carl-red); font-weight: bold; width: 120px; font-size: 1.2rem;}
+        .loc { font-weight: bold; color: var(--boxer-white); display: block; font-size: 1.1rem; }
+
+        /* CTA BUTTON */
         .btn {
             display: block;
             width: fit-content;
-            margin: 40px auto;
+            margin: 50px auto;
             background: var(--carl-red);
             color: white;
             padding: 20px 40px;
             text-decoration: none;
             font-weight: bold;
+            font-size: 1.3rem;
             border: 2px solid var(--system-blue);
+            text-transform: uppercase;
+            transition: 0.3s;
         }
+        .btn:hover { background: white; color: black; box-shadow: 0 0 15px var(--system-blue); }
+
+        /* Mobile responsiveness */
+        @media (max-width: 768px) {
+            body { background-image: none; /* Removes side graphics on small screens */ }
+            .hero-text h1 { font-size: 2rem; }
+            .hero-banner { height: 250px; }
+            .container { padding: 20px; margin-top: -20px; }
+        }
+
     </style>
 </head>
 <body>
 
 <div class="hero-banner">
-    <img src="https://via.placeholder.com/1200x400/111111/cc0000?text=ANNAPOLIS+ASCENDENCY+IMAGE+HERE" class="hero-image" alt="Banner">
+    <img src="donut-shocks-carl.png" class="banner-graphic" alt="System Message Graphic">
+    
     <div class="hero-text">
         <h1>THE ANNAPOLIS ASCENDENCY</h1>
         <p>JULY 25th | 3PM - 8PM | DOWNTOWN</p>
@@ -111,23 +162,35 @@
         Space is limited to 50 participants to keep the experience elite and organized. Grab your Crawler Pass, equip your favorite outfit, and let’s make some memories in the dungeon!
     </div>
 
-    <h2>ITINERARY</h2>
+    <h2>Current Quest Log</h2>
     <table class="quest-log">
         <tr>
             <td class="time">3:00 PM</td>
-            <td><span class="loc">The Desperado Club (Middleton Tavern)</span>Trivia & Registration</td>
+            <td>
+                <span class="loc">The Desperado Club (Middleton Tavern)</span>
+                Objective: DCC Trivia Level 1 & Registration.
+            </td>
         </tr>
         <tr>
             <td class="time">4:30 PM</td>
-            <td><span class="loc">The Hunting Grounds (Dry 85)</span>The Grind: Boss Battles & Crafting Tables</td>
+            <td>
+                <span class="loc">The Hunting Grounds (Dry 85)</span>
+                Objective: The Grind: Boss Battles & Crafting Tables.
+            </td>
         </tr>
         <tr>
             <td class="time">6:30 PM</td>
-            <td><span class="loc">The Grand Stage (Ram's Head On Stage)</span>The Masquerade: Costume Contest</td>
+            <td>
+                <span class="loc">The Grand Stage (Ram's Head On Stage)</span>
+                Objective: The Masquerade (Costume Contest).
+            </td>
         </tr>
         <tr>
             <td class="time">7:00 PM</td>
-            <td><span class="loc">The Pineapple Cabaret (Stan & Joe's)</span>[SECRET EVENT] Final Boss</td>
+            <td>
+                <span class="loc">The Pineapple Cabaret (Stan & Joe's)</span>
+                Objective: [SECRET EVENT] The Final Boss Showdown.
+            </td>
         </tr>
     </table>
 
