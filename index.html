@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Annapolis Ascendency | Dungeon Carl Bar Crawler</title>
+    <style>
+        /* THE COLOR PALETTE */
+        :root {
+            --white-boxer: #ffffff;
+            --heart-pink: #ff85a1;
+            --gauntlet-black: #121212;
+            --spike-gray: #333333;
+            --system-blue: #00f2ff;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--white-boxer);
+            /* REPEATING HEART PATTERN */
+            background-image: radial-gradient(var(--heart-pink) 20%, transparent 20%),
+                              radial-gradient(var(--heart-pink) 20%, transparent 20%);
+            background-position: 0 0, 25px 25px;
+            background-size: 50px 50px;
+            color: var(--gauntlet-black);
+        }
+
+        /* THE SPIKEY GAUNTLET HEADER */
+        header {
+            background: var(--gauntlet-black);
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+            clip-path: polygon(0% 0%, 100% 0%, 100% 90%, 95% 100%, 85% 92%, 75% 100%, 65% 92%, 55% 100%, 45% 92%, 35% 100%, 25% 92%, 15% 100%, 5% 92%, 0% 100%);
+            border-bottom: 4px solid var(--system-blue);
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            background: rgba(255, 255, 255, 0.95);
+            border: 3px solid var(--gauntlet-black);
+            box-shadow: 10px 10px 0px var(--gauntlet-black);
+            margin-top: -30px;
+        }
+
+        h1 { font-size: 2.5rem; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 2px; }
+        .system-msg { border-left: 5px solid var(--system-blue); padding-left: 20px; font-style: italic; color: #444; margin-bottom: 30px; }
+        
+        /* THE QUEST LOG (SCHEDULE) */
+        .quest-log { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        .quest-log th { background: var(--gauntlet-black); color: white; padding: 15px; text-align: left; }
+        .quest-log td { padding: 15px; border-bottom: 2px solid #eee; }
+        .time { font-weight: bold; color: var(--heart-pink); }
+
+        .btn {
+            display: inline-block;
+            background: var(--gauntlet-black);
+            color: white;
+            padding: 20px 40px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 30px;
+            border: 2px solid var(--system-blue);
+            transition: 0.3s;
+        }
+        .btn:hover { background: var(--heart-pink); color: black; transform: scale(1.05); }
+
+        .counter-box {
+            background: #f0f0f0;
+            padding: 20px;
+            text-align: center;
+            margin-top: 20px;
+            border: 2px dashed var(--gauntlet-black);
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>The Annapolis Ascendency</h1>
+    <p>JULY 25th, 2026 | 3PM - 8PM | DOWNTOWN ANNAPOLIS</p>
+</header>
+
+<div class="container">
+    <div class="system-msg">
+        <p><strong>SYSTEM NOTIFICATION:</strong> Welcome, Crawlers! The System has cleared a path for an epic social adventure. Join 50 fellow fans to navigate the "Annapolis Sector." Test your knowledge, show off your gear, and enjoy themed "Boss Battle" drinks!</p>
+    </div>
+
+    <h2>THE QUEST LOG</h2>
+    <table class="quest-log">
+        <thead>
+            <tr>
+                <th>Time</th>
+                <th>Location</th>
+                <th>Objective</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="time">3:00 PM</td>
+                <td><strong>The Desperado Club</strong><br>(Middleton Tavern)</td>
+                <td>DCC Trivia Level 1 & Registration.</td>
+            </tr>
+            <tr>
+                <td class="time">4:15 PM</td>
+                <td><strong>The Forge</strong><br>(Dry 85)</td>
+                <td>Boss Battles & Crafting Tables (Themed Drinks).</td>
+            </tr>
+            <tr>
+                <td class="time">5:45 PM</td>
+                <td><strong>The Grand Stage</strong><br>(Ram's Head On Stage)</td>
+                <td>The Masquerade (Costume Contest).</td>
+            </tr>
+            <tr>
+                <td class="time">7:00 PM</td>
+                <td><strong>The Pineapple Cabaret</strong><br>(Stan & Joe's Saloon)</td>
+                <td><strong>[SECRET EVENT]</strong> The Final Showdown.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="counter-box">
+        <h3 id="ticket-count">CRAWLER SLOTS REMAINING: 50 / 50</h3>
+        <p>Countdown to Sector Opening: <span id="timer">Loading...</span></p>
+    </div>
+
+    <center>
+        <a href="#" class="btn">[ ACQUIRE CRAWLER PASS ]</a>
+    </center>
+</div>
+
+<script>
+    // Simple Countdown Timer
+    const targetDate = new Date("July 25, 2026 15:00:00").getTime();
+    setInterval(function() {
+        const now = new Date().getTime();
+        const diff = targetDate - now;
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        document.getElementById("timer").innerHTML = days + "d " + hours + "h remaining";
+    }, 1000);
+</script>
+
+</body>
+</html>
