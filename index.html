@@ -1,130 +1,1088 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dungeon Bar Crawler Carl</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            background-color: #000000;
-            color: #ffffff;
-            font-family: "Arial Black", Gadget, sans-serif;
-            background-image: 
-                radial-gradient(circle at 20% 20%, #440000 0%, transparent 40%),
-                radial-gradient(circle at 80% 80%, #440000 0%, transparent 40%);
-            background-attachment: fixed;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dungeon Bar Crawler Carl — Annapolis, July 25</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Share+Tech+Mono&family=Barlow+Condensed:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --blood:   #c0392b;
+      --blood2:  #8b1a1a;
+      --neon:    #00ffe0;
+      --gold:    #e8b84b;
+      --gold2:   #a07820;
+      --void:    #04040a;
+      --deep:    #080810;
+      --panel:   #0c0c18;
+      --panel2:  #10101f;
+      --border:  #1a1a30;
+      --border2: #252545;
+      --text:    #c8c8e0;
+      --muted:   #555580;
+      --warn:    #ff6b00;
+    }
 
-        header {
-            background: #000;
-            border-bottom: 8px solid #d90429;
-            text-align: center;
-            position: relative;
-        }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
 
-        .hero-img-placeholder {
-            width: 100%;
-            height: 450px;
-            background: #000;
-            position: relative;
-            overflow: hidden;
-        }
+    body {
+      background: var(--void);
+      color: var(--text);
+      font-family: 'Share Tech Mono', monospace;
+      overflow-x: hidden;
+      cursor: crosshair;
+    }
 
-        .hero-img-placeholder img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            opacity: 0.7;
-            filter: contrast(1.2) brightness(0.8);
-        }
+    /* ── NOISE + SCANLINES ── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 9997; opacity: 0.5;
+    }
+    body::after {
+      content: '';
+      position: fixed; inset: 0;
+      background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.07) 2px, rgba(0,0,0,0.07) 4px);
+      pointer-events: none; z-index: 9996;
+    }
 
-        .hero-img-placeholder::after {
-            content: " ";
-            position: absolute;
-            top: 0; left: 0; bottom: 0; right: 0;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), 
-                        linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
-            background-size: 100% 4px, 3px 100%;
-            pointer-events: none;
-        }
+    /* ── TICKER ── */
+    .ticker {
+      background: var(--blood);
+      color: #fff;
+      font-family: 'Black Ops One', cursive;
+      font-size: 0.68rem;
+      letter-spacing: 0.18em;
+      padding: 7px 0;
+      overflow: hidden;
+      white-space: nowrap;
+      position: relative;
+      z-index: 100;
+    }
+    .ticker-inner {
+      display: inline-block;
+      animation: ticker 30s linear infinite;
+    }
+    @keyframes ticker {
+      from { transform: translateX(100vw); }
+      to   { transform: translateX(-100%); }
+    }
 
-        h1 {
-            font-family: Impact, sans-serif;
-            font-size: clamp(2rem, 8vw, 4.5rem);
-            margin: -60px 0 0 0;
-            text-transform: uppercase;
-            position: relative;
-            z-index: 10;
-            color: #ffffff;
-            text-shadow: 4px 4px #d90429, -2px -2px #00f2ff;
-        }
+    /* ── NAV ── */
+    nav {
+      position: sticky; top: 0;
+      background: rgba(4,4,10,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      z-index: 200;
+      padding: 0 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 56px;
+    }
+    .nav-logo {
+      font-family: 'Black Ops One', cursive;
+      font-size: 1rem;
+      color: var(--gold);
+      letter-spacing: 0.1em;
+      text-shadow: 0 0 20px rgba(232,184,75,0.5);
+      text-decoration: none;
+    }
+    .nav-links {
+      display: flex; gap: 32px; list-style: none;
+    }
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--neon); }
+    .nav-cta {
+      background: var(--blood);
+      color: #fff !important;
+      padding: 8px 20px;
+      font-family: 'Black Ops One', cursive !important;
+      font-size: 0.65rem !important;
+      letter-spacing: 0.15em !important;
+      transition: background 0.2s, box-shadow 0.2s !important;
+    }
+    .nav-cta:hover { background: #a02020 !important; box-shadow: 0 0 20px rgba(192,57,43,0.5) !important; color: #fff !important; }
 
-        .details {
-            font-size: 1.2rem;
-            color: #00f2ff;
-            margin-bottom: 20px;
-            text-transform: uppercase;
-            margin-top: 10px;
-        }
+    @media (max-width: 640px) {
+      .nav-links { display: none; }
+    }
 
-        .content-box {
-            max-width: 850px;
-            margin: 20px auto 60px;
-            padding: 50px;
-            background: rgba(10, 10, 10, 0.98);
-            border: 2px solid #d90429;
-            box-shadow: 0 0 40px rgba(217, 4, 41, 0.3);
-        }
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center;
+      padding: 80px 24px 100px;
+      position: relative;
+      background:
+        radial-gradient(ellipse 100% 70% at 50% 0%, rgba(192,57,43,0.14) 0%, transparent 65%),
+        radial-gradient(ellipse 60% 50% at 10% 80%, rgba(0,255,224,0.04) 0%, transparent 55%),
+        radial-gradient(ellipse 60% 50% at 90% 70%, rgba(232,184,75,0.04) 0%, transparent 55%),
+        var(--void);
+    }
 
-        .ai-msg {
-            border-left: 6px solid #00f2ff;
-            background: rgba(0, 242, 255, 0.05);
-            padding: 25px;
-            margin-bottom: 40px;
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            font-size: 1.1rem;
-        }
+    /* grid floor */
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(26,26,48,0.7) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(26,26,48,0.7) 1px, transparent 1px);
+      background-size: 64px 64px;
+      mask-image: radial-gradient(ellipse 90% 85% at 50% 40%, black 20%, transparent 75%);
+    }
 
-        h2 {
-            font-family: Impact, sans-serif;
-            color: #d90429;
-            font-size: 2.5rem;
-            border-bottom: 2px solid #d90429;
-            margin-top: 0;
-        }
+    .hero-eyebrow {
+      font-size: 0.68rem;
+      letter-spacing: 0.45em;
+      color: var(--neon);
+      text-transform: uppercase;
+      border: 1px solid rgba(0,255,224,0.3);
+      padding: 7px 24px;
+      margin-bottom: 40px;
+      position: relative; z-index: 2;
+      animation: fadeUp 0.7s ease both;
+    }
+    .hero-eyebrow::before, .hero-eyebrow::after {
+      content: '◆'; margin: 0 10px; color: var(--blood); font-size: 0.5rem;
+    }
 
-        .schedule {
-            width: 100%;
-            border-collapse: collapse;
-        }
+    .hero-title {
+      font-family: 'Black Ops One', cursive;
+      font-size: clamp(3.5rem, 11vw, 9rem);
+      line-height: 0.88;
+      color: #fff;
+      position: relative; z-index: 2;
+      text-shadow: 0 0 60px rgba(192,57,43,0.7), 0 0 120px rgba(192,57,43,0.3), 5px 5px 0 rgba(0,0,0,0.9);
+      animation: fadeUp 0.8s ease 0.1s both;
+    }
+    .hero-title .line-dungeon { color: #fff; display: block; }
+    .hero-title .line-bar {
+      color: var(--blood);
+      display: block;
+      text-shadow: 0 0 40px rgba(192,57,43,1), 0 0 80px rgba(192,57,43,0.5), 5px 5px 0 rgba(0,0,0,0.9);
+    }
+    .hero-title .line-carl {
+      color: var(--gold);
+      display: block;
+      text-shadow: 0 0 40px rgba(232,184,75,0.9), 0 0 80px rgba(232,184,75,0.4), 5px 5px 0 rgba(0,0,0,0.9);
+    }
 
-        .schedule td {
-            padding: 20px 10px;
-            border-bottom: 1px solid #222;
-            vertical-align: top;
-        }
+    /* glitch effect */
+    .hero-title .line-dungeon { position: relative; }
+    .hero-title .line-dungeon::before,
+    .hero-title .line-dungeon::after {
+      content: 'DUNGEON';
+      position: absolute; top: 0; left: 0; width: 100%;
+    }
+    .hero-title .line-dungeon::before {
+      color: var(--blood); opacity: 0;
+      animation: glitchA 5s infinite;
+      clip-path: polygon(0 20%, 100% 20%, 100% 45%, 0 45%);
+    }
+    .hero-title .line-dungeon::after {
+      color: var(--neon); opacity: 0;
+      animation: glitchB 5s infinite;
+      clip-path: polygon(0 60%, 100% 60%, 100% 80%, 0 80%);
+    }
+    @keyframes glitchA {
+      0%,88%,100% { opacity:0; transform:translate(0); }
+      89% { opacity:0.7; transform:translate(-4px,2px); }
+      91% { opacity:0; transform:translate(4px,-2px); }
+      93% { opacity:0.5; transform:translate(-2px,1px); }
+    }
+    @keyframes glitchB {
+      0%,88%,100% { opacity:0; transform:translate(0); }
+      90% { opacity:0.6; transform:translate(4px,-2px); }
+      92% { opacity:0; transform:translate(-3px,2px); }
+      94% { opacity:0.4; transform:translate(2px,-1px); }
+    }
 
-        .time-slot {
-            color: #d90429;
-            font-size: 1.5rem;
-            width: 150px;
-        }
+    .hero-rule {
+      width: 340px; height: 1px; max-width: 90vw;
+      background: linear-gradient(90deg, transparent, var(--blood), var(--gold), var(--blood), transparent);
+      margin: 32px auto;
+      position: relative; z-index: 2;
+      animation: fadeUp 0.9s ease 0.25s both;
+    }
 
-        .loc-name {
-            font-size: 1.2rem;
-            font-weight: bold;
-            color: #fff;
-            display: block;
-            margin-bottom: 5px;
-        }
+    .hero-date {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: clamp(1.1rem, 3vw, 1.7rem);
+      letter-spacing: 0.5em;
+      color: var(--gold);
+      text-transform: uppercase;
+      position: relative; z-index: 2;
+      animation: fadeUp 0.9s ease 0.3s both;
+    }
 
-        .loc-desc {
-            font-family: Arial, sans-serif;
-            color: #ccc;
-            font-size: 1rem;
-        }
+    .hero-location {
+      font-size: 0.72rem;
+      letter-spacing: 0.3em;
+      color: var(--muted);
+      text-transform: uppercase;
+      margin-top: 6px;
+      position: relative; z-index: 2;
+      animation: fadeUp 0.9s ease 0.35s both;
+    }
 
-        .status
+    .hero-welcome {
+      max-width: 620px;
+      font-size: 0.82rem;
+      line-height: 1.9;
+      color: var(--text);
+      opacity: 0.85;
+      margin: 32px auto 0;
+      position: relative; z-index: 2;
+      animation: fadeUp 1s ease 0.45s both;
+    }
+    .hero-welcome em { color: var(--neon); font-style: normal; }
+    .hero-welcome strong { color: var(--gold); font-weight: normal; }
+
+    /* ── STATUS BOXES ── */
+    .status-bar {
+      display: flex; gap: 0;
+      justify-content: center;
+      flex-wrap: wrap;
+      max-width: 700px;
+      margin: 44px auto 0;
+      border: 1px solid var(--border2);
+      position: relative; z-index: 2;
+      animation: fadeUp 1s ease 0.55s both;
+    }
+    .status-box {
+      flex: 1; min-width: 220px;
+      background: var(--panel);
+      padding: 24px 20px;
+      text-align: center;
+      border-right: 1px solid var(--border2);
+      position: relative; overflow: hidden;
+    }
+    .status-box:last-child { border-right: none; }
+    .status-box::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, var(--blood), var(--gold));
+    }
+    .status-val {
+      font-family: 'Black Ops One', cursive;
+      font-size: 1.8rem;
+      color: var(--gold);
+      text-shadow: 0 0 20px rgba(232,184,75,0.5);
+      display: block; line-height: 1;
+    }
+    .status-val.blood { color: var(--blood); text-shadow: 0 0 20px rgba(192,57,43,0.6); }
+    .status-label {
+      font-size: 0.6rem;
+      letter-spacing: 0.3em;
+      color: var(--muted);
+      text-transform: uppercase;
+      margin-top: 6px;
+      display: block;
+    }
+
+    /* countdown digits */
+    #countdown {
+      font-family: 'Black Ops One', cursive;
+      font-size: 1rem;
+      color: var(--neon);
+      text-shadow: 0 0 15px rgba(0,255,224,0.6);
+      letter-spacing: 0.05em;
+      line-height: 1;
+    }
+
+    .hero-cta-wrap {
+      display: flex; gap: 16px; flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 44px;
+      position: relative; z-index: 2;
+      animation: fadeUp 1s ease 0.65s both;
+    }
+    .btn-primary {
+      display: inline-block;
+      padding: 16px 52px;
+      background: var(--blood);
+      color: #fff;
+      font-family: 'Black Ops One', cursive;
+      font-size: 0.9rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: none; cursor: pointer;
+      position: relative; overflow: hidden;
+      transition: background 0.3s, box-shadow 0.3s;
+    }
+    .btn-primary::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.1), transparent);
+    }
+    .btn-primary:hover { background: #a02020; box-shadow: 0 0 40px rgba(192,57,43,0.7); }
+
+    .btn-ghost {
+      display: inline-block;
+      padding: 16px 40px;
+      background: transparent;
+      color: var(--muted);
+      font-family: 'Black Ops One', cursive;
+      font-size: 0.9rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: 1px solid var(--border2);
+      cursor: pointer;
+      transition: color 0.3s, border-color 0.3s;
+    }
+    .btn-ghost:hover { color: #fff; border-color: var(--text); }
+
+    /* ── SYSTEM NOTICE ── */
+    .sys-notice {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    .sys-notice-inner {
+      background: var(--panel2);
+      border-left: 3px solid var(--neon);
+      padding: 22px 28px;
+      font-size: 0.78rem;
+      line-height: 1.9;
+      color: var(--neon);
+      position: relative;
+    }
+    .sys-notice-inner .tag {
+      font-family: 'Black Ops One', cursive;
+      color: var(--warn);
+      font-size: 0.6rem;
+      letter-spacing: 0.3em;
+      display: block;
+      margin-bottom: 8px;
+    }
+    .sys-notice-inner span { color: var(--text); }
+    .sys-notice-inner strong { color: #fff; }
+
+    /* ── SECTION SHELL ── */
+    .section {
+      max-width: 1060px;
+      margin: 0 auto;
+      padding: 80px 24px;
+    }
+    .section-head {
+      display: flex; align-items: center; gap: 18px;
+      margin-bottom: 52px;
+    }
+    .section-head h2 {
+      font-family: 'Black Ops One', cursive;
+      font-size: clamp(1.5rem, 4vw, 2.4rem);
+      color: #fff;
+      white-space: nowrap;
+      text-shadow: 0 0 25px rgba(192,57,43,0.4);
+    }
+    .section-head .sh-line {
+      flex: 1; height: 1px;
+      background: linear-gradient(to right, var(--border2), transparent);
+    }
+    .section-head .sh-num {
+      font-size: 0.62rem; color: var(--muted); letter-spacing: 0.25em; white-space: nowrap;
+    }
+
+    /* ── QUEST LOG ── */
+    .quest-log { display: flex; flex-direction: column; gap: 3px; }
+
+    .quest-item {
+      display: grid;
+      grid-template-columns: 100px 1fr;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      transition: border-color 0.3s, transform 0.3s;
+      position: relative;
+    }
+    .quest-item::before {
+      content: '';
+      position: absolute; top: 0; left: 0; bottom: 0; width: 3px;
+      background: linear-gradient(to bottom, var(--blood), var(--gold));
+      transform: scaleY(0); transform-origin: top;
+      transition: transform 0.4s ease;
+    }
+    .quest-item:hover { border-color: var(--border2); transform: translateX(4px); }
+    .quest-item:hover::before { transform: scaleY(1); }
+
+    .quest-time {
+      background: var(--panel2);
+      border-right: 1px solid var(--border);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 24px 12px;
+      text-align: center;
+    }
+    .quest-time-val {
+      font-family: 'Black Ops One', cursive;
+      font-size: 1.1rem;
+      color: var(--gold);
+      line-height: 1;
+    }
+    .quest-time-pm {
+      font-size: 0.6rem;
+      color: var(--muted);
+      letter-spacing: 0.2em;
+      margin-top: 4px;
+    }
+    .quest-floor-badge {
+      font-size: 0.55rem;
+      letter-spacing: 0.2em;
+      color: var(--blood);
+      text-transform: uppercase;
+      border: 1px solid rgba(192,57,43,0.3);
+      padding: 3px 8px;
+      margin-top: 8px;
+    }
+
+    .quest-body { padding: 24px 28px; }
+    .quest-dungeon {
+      font-size: 0.62rem;
+      letter-spacing: 0.3em;
+      color: var(--blood);
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+    .quest-bar {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900;
+      font-size: 1.5rem;
+      color: #fff;
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .quest-realname {
+      font-size: 0.68rem;
+      color: var(--muted);
+      letter-spacing: 0.12em;
+      margin-bottom: 12px;
+    }
+    .quest-realname::before { content: '📍 '; }
+    .quest-activity {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 0.72rem;
+      color: var(--neon);
+      letter-spacing: 0.08em;
+    }
+    .quest-activity::before { content: '▶'; font-size: 0.5rem; }
+
+    /* ── MAP SECTION ── */
+    .map-section {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      position: relative;
+    }
+    .map-header {
+      background: var(--panel2);
+      border-bottom: 1px solid var(--border);
+      padding: 16px 24px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .map-header-title {
+      font-family: 'Black Ops One', cursive;
+      font-size: 0.75rem;
+      color: var(--gold);
+      letter-spacing: 0.15em;
+    }
+    .map-header-sub {
+      font-size: 0.62rem;
+      color: var(--muted);
+      letter-spacing: 0.2em;
+    }
+    #map-frame {
+      width: 100%; height: 420px; border: none; display: block;
+      filter: grayscale(0.3) contrast(1.1);
+    }
+    .map-stops-legend {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 0;
+      border-top: 1px solid var(--border);
+    }
+    .map-stop-item {
+      padding: 16px 20px;
+      border-right: 1px solid var(--border);
+      display: flex; gap: 12px; align-items: flex-start;
+    }
+    .map-stop-item:last-child { border-right: none; }
+    .map-stop-num {
+      font-family: 'Black Ops One', cursive;
+      font-size: 1.2rem;
+      color: var(--blood);
+      line-height: 1;
+      flex-shrink: 0;
+    }
+    .map-stop-info {}
+    .map-stop-name {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: #fff;
+      line-height: 1.1;
+    }
+    .map-stop-addr {
+      font-size: 0.62rem;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    /* ── LOOT SECTION ── */
+    .loot-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 3px;
+    }
+    .loot-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      padding: 28px 24px;
+      position: relative; overflow: hidden;
+      transition: border-color 0.3s;
+    }
+    .loot-card::after {
+      content: '';
+      position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, var(--blood), var(--gold));
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 0.4s;
+    }
+    .loot-card:hover { border-color: var(--border2); }
+    .loot-card:hover::after { transform: scaleX(1); }
+    .loot-icon { font-size: 2rem; margin-bottom: 14px; display: block; }
+    .loot-name {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700; font-size: 1rem;
+      color: var(--gold); text-transform: uppercase;
+      letter-spacing: 0.08em; margin-bottom: 8px;
+    }
+    .loot-desc {
+      font-size: 0.74rem; line-height: 1.7; color: var(--muted);
+    }
+    .loot-badge {
+      display: inline-block;
+      margin-top: 14px;
+      font-size: 0.58rem;
+      letter-spacing: 0.2em;
+      color: var(--neon);
+      border: 1px solid rgba(0,255,224,0.25);
+      padding: 3px 10px;
+      text-transform: uppercase;
+    }
+
+    /* ── ARTWORK ZONE ── */
+    .artwork-section {
+      background: linear-gradient(to bottom, var(--void), var(--panel), var(--void));
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 80px 24px;
+      text-align: center;
+    }
+    .artwork-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 3px;
+      max-width: 1060px;
+      margin: 0 auto;
+    }
+    .artwork-slot {
+      aspect-ratio: 3/4;
+      background: var(--panel);
+      border: 1px dashed var(--border2);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 12px;
+      position: relative; overflow: hidden;
+      transition: border-color 0.3s;
+    }
+    .artwork-slot:hover { border-color: var(--muted); }
+    .artwork-slot-icon { font-size: 2.5rem; opacity: 0.3; }
+    .artwork-slot-label {
+      font-size: 0.62rem;
+      letter-spacing: 0.3em;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+    .artwork-slot img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: none;
+    }
+    .artwork-note {
+      max-width: 500px;
+      margin: 32px auto 0;
+      font-size: 0.72rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+    .artwork-note strong { color: var(--gold); }
+
+    /* ── REGISTER ── */
+    .register-section {
+      background:
+        radial-gradient(ellipse 80% 100% at 50% 50%, rgba(192,57,43,0.12), transparent 70%),
+        var(--panel);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      text-align: center;
+      padding: 100px 24px;
+      position: relative; overflow: hidden;
+    }
+    .register-section::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(26,26,48,0.5) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(26,26,48,0.5) 1px, transparent 1px);
+      background-size: 48px 48px;
+      mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, transparent 30%, black 80%);
+    }
+    .register-eyebrow {
+      font-size: 0.62rem;
+      letter-spacing: 0.4em;
+      color: var(--blood);
+      text-transform: uppercase;
+      margin-bottom: 20px;
+      position: relative; z-index: 2;
+    }
+    .register-title {
+      font-family: 'Black Ops One', cursive;
+      font-size: clamp(2rem, 7vw, 5rem);
+      color: #fff;
+      text-shadow: 0 0 60px rgba(192,57,43,0.6);
+      margin-bottom: 12px;
+      line-height: 0.9;
+      position: relative; z-index: 2;
+    }
+    .register-title span { color: var(--gold); }
+    .register-sub {
+      font-size: 0.78rem;
+      color: var(--muted);
+      max-width: 440px;
+      margin: 0 auto 40px;
+      line-height: 1.8;
+      position: relative; z-index: 2;
+    }
+    .register-sub strong { color: var(--blood); }
+    .btn-group {
+      display: flex; gap: 16px; justify-content: center;
+      flex-wrap: wrap; position: relative; z-index: 2;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 40px 24px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 16px;
+    }
+    .footer-logo {
+      font-family: 'Black Ops One', cursive;
+      font-size: 0.85rem;
+      color: var(--gold);
+      letter-spacing: 0.1em;
+    }
+    .footer-copy {
+      font-size: 0.62rem;
+      color: var(--muted);
+      letter-spacing: 0.15em;
+      text-align: right;
+      line-height: 1.7;
+    }
+    .footer-copy a { color: var(--muted); text-decoration: none; }
+    .footer-copy a:hover { color: var(--neon); }
+
+    /* ── DIVIDER ── */
+    .divider {
+      width: 100%; height: 1px;
+      background: linear-gradient(to right, transparent, var(--border2), transparent);
+      max-width: 1060px; margin: 0 auto;
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* scroll reveal */
+    .reveal {
+      opacity: 0; transform: translateY(28px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1; transform: translateY(0);
+    }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 560px) {
+      .quest-item { grid-template-columns: 80px 1fr; }
+      .quest-time-val { font-size: 0.9rem; }
+      .quest-bar { font-size: 1.2rem; }
+      .map-stop-item:nth-child(n+3) { border-top: 1px solid var(--border); }
+    }
+  </style>
+</head>
+<body>
+
+<!-- TICKER -->
+<div class="ticker">
+  <span class="ticker-inner">
+    ⚠ SYSTEM NOTIFICATION: THE ANNAPOLIS SECTOR IS NOW OPEN — JULY 25TH — 50 CRAWLER SLOTS AVAILABLE — REGISTER NOW OR LOSE YOUR PLACE &nbsp;&nbsp;&nbsp;&nbsp; ◆ &nbsp;&nbsp;&nbsp;&nbsp; ⚠ SYSTEM NOTIFICATION: THE ANNAPOLIS SECTOR IS NOW OPEN — JULY 25TH — 50 CRAWLER SLOTS AVAILABLE — REGISTER NOW OR LOSE YOUR PLACE &nbsp;&nbsp;&nbsp;&nbsp; ◆ &nbsp;&nbsp;&nbsp;&nbsp;
+  </span>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">DBC CARL</a>
+  <ul class="nav-links">
+    <li><a href="#quest-log">Quest Log</a></li>
+    <li><a href="#map">Map</a></li>
+    <li><a href="#loot">Loot</a></li>
+    <li><a href="#artwork">Gallery</a></li>
+    <li><a href="https://www.eventbrite.com" target="_blank" class="nav-cta">Get Tickets</a></li>
+  </ul>
+</nav>
+
+<!-- ══════════════════════════════════════════ HERO -->
+<section class="hero">
+  <div class="hero-eyebrow">Annapolis Sector — Floor Clearance Event</div>
+
+  <h1 class="hero-title">
+    <span class="line-dungeon">DUNGEON</span>
+    <span class="line-bar">BAR</span>
+    <span class="line-carl">CRAWLER CARL</span>
+  </h1>
+
+  <div class="hero-rule"></div>
+
+  <div class="hero-date">July 25th, 2025</div>
+  <div class="hero-location">📍 Downtown Annapolis, MD &nbsp;·&nbsp; 3:00 PM – Close</div>
+
+  <p class="hero-welcome">
+    <em>WELCOME, CRAWLERS!</em><br><br>
+    The System has cleared a path through the heart of <strong>Downtown Annapolis</strong> for an epic, one-of-a-kind social adventure. We're bringing the world of Dungeon Crawler Carl to life for one afternoon of incredible drinks, great company, and legendary challenges!<br><br>
+    On <strong>July 25th</strong>, join <em>50 fellow fans</em> as we navigate the <strong>"Annapolis Sector."</strong> Whether you're here to test your knowledge in Trivia, show off your best gear in the Costume Contest, or just enjoy the themed "Boss Battle" drinks, there's a place in the party for you.<br><br>
+    Space is limited to <strong>50 participants</strong> to keep the experience elite and organized. Grab your Crawler Pass, equip your favorite outfit, and let's make some memories in the dungeon!
+  </p>
+
+  <!-- STATUS BOXES -->
+  <div class="status-bar">
+    <div class="status-box">
+      <span class="status-val blood">50/50</span>
+      <span class="status-label">Crawlers Remaining</span>
+    </div>
+    <div class="status-box">
+      <div id="countdown">LOADING...</div>
+      <span class="status-label">Until Floor Collapse</span>
+    </div>
+  </div>
+
+  <div class="hero-cta-wrap">
+    <a href="https://www.eventbrite.com" target="_blank" class="btn-primary">⚔ Claim Your Crawler Pass</a>
+    <a href="#quest-log" class="btn-ghost">▼ View Quest Log</a>
+  </div>
+</section>
+
+<!-- SYSTEM NOTICE -->
+<div class="sys-notice" style="padding: 40px 24px;">
+  <div class="sys-notice-inner">
+    <span class="tag">&gt;&gt; SYSTEM MESSAGE — SECTOR BRIEFING</span>
+    <span>
+      This is the <strong>first-ever Dungeon Crawler Carl themed bar crawl in Annapolis, MD.</strong>
+      Four stops. Four floors. One afternoon to prove you have what it takes to be a top-tier Crawler.
+      Costume Contest. Boss Battle Drinks. DCC Trivia. The Maestro is watching.
+      <strong style="color: var(--warn)">Limited to 50 Crawlers. No exceptions. The System does not negotiate.</strong>
+    </span>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════ QUEST LOG -->
+<div class="section" id="quest-log">
+  <div class="section-head reveal">
+    <h2>Quest Log</h2>
+    <div class="sh-line"></div>
+    <span class="sh-num">01 / SCHEDULE</span>
+  </div>
+
+  <div class="quest-log">
+
+    <div class="quest-item reveal reveal-delay-1">
+      <div class="quest-time">
+        <div class="quest-time-val">3:00</div>
+        <div class="quest-time-pm">PM</div>
+        <div class="quest-floor-badge">Floor 1</div>
+      </div>
+      <div class="quest-body">
+        <div class="quest-dungeon">The Desperado Club</div>
+        <div class="quest-bar">Middleton Tavern</div>
+        <div class="quest-realname">2 Market Space, Annapolis, MD</div>
+        <div class="quest-activity">DCC Trivia Level 1 &amp; Registration</div>
+      </div>
+    </div>
+
+    <div class="quest-item reveal reveal-delay-2">
+      <div class="quest-time">
+        <div class="quest-time-val">4:30</div>
+        <div class="quest-time-pm">PM</div>
+        <div class="quest-floor-badge">Floor 2</div>
+      </div>
+      <div class="quest-body">
+        <div class="quest-dungeon">The Hunting Grounds</div>
+        <div class="quest-bar">Dry 85</div>
+        <div class="quest-realname">85 Forest Dr, Annapolis, MD</div>
+        <div class="quest-activity">The Grind: Boss Battles &amp; Crafting Tables</div>
+      </div>
+    </div>
+
+    <div class="quest-item reveal reveal-delay-3">
+      <div class="quest-time">
+        <div class="quest-time-val">6:30</div>
+        <div class="quest-time-pm">PM</div>
+        <div class="quest-floor-badge">Floor 3</div>
+      </div>
+      <div class="quest-body">
+        <div class="quest-dungeon">The Grand Stage</div>
+        <div class="quest-bar">Ram's Head On Stage</div>
+        <div class="quest-realname">33 West St, Annapolis, MD</div>
+        <div class="quest-activity">The Masquerade — Costume Contest</div>
+      </div>
+    </div>
+
+    <div class="quest-item reveal reveal-delay-4" style="border-color: rgba(232,184,75,0.3);">
+      <div class="quest-time" style="background: rgba(232,184,75,0.06);">
+        <div class="quest-time-val" style="color: var(--gold); text-shadow: 0 0 15px rgba(232,184,75,0.5);">7:00</div>
+        <div class="quest-time-pm">PM</div>
+        <div class="quest-floor-badge" style="color: var(--gold); border-color: rgba(232,184,75,0.3);">Final Floor</div>
+      </div>
+      <div class="quest-body">
+        <div class="quest-dungeon" style="color: var(--gold);">The Pineapple Cabaret</div>
+        <div class="quest-bar">Stan &amp; Joe's Saloon</div>
+        <div class="quest-realname">139 Main St, Annapolis, MD</div>
+        <div class="quest-activity" style="color: var(--gold);">The Final Boss Showdown</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ══════════════════════════════════════════ MAP -->
+<div class="section" id="map">
+  <div class="section-head reveal">
+    <h2>Sector Map</h2>
+    <div class="sh-line"></div>
+    <span class="sh-num">02 / NAVIGATION</span>
+  </div>
+
+  <div class="map-section reveal">
+    <div class="map-header">
+      <span class="map-header-title">◆ ANNAPOLIS SECTOR — FLOOR LAYOUT</span>
+      <span class="map-header-sub">Downtown Annapolis, MD</span>
+    </div>
+    <iframe
+      id="map-frame"
+      loading="lazy"
+      allowfullscreen
+      referrerpolicy="no-referrer-when-downgrade"
+      src="https://www.google.com/maps/embed/v1/directions?key=AIzaSyD-9tSrke72PouQMnMX-a6eAvBvyUGjNy8&origin=2+Market+Space,+Annapolis,+MD&destination=139+Main+St,+Annapolis,+MD&waypoints=85+Forest+Dr,+Annapolis,+MD|33+West+St,+Annapolis,+MD&mode=walking">
+    </iframe>
+    <div class="map-stops-legend">
+      <div class="map-stop-item">
+        <div class="map-stop-num">1</div>
+        <div class="map-stop-info">
+          <div class="map-stop-name">Middleton Tavern</div>
+          <div class="map-stop-addr">2 Market Space · 3:00 PM</div>
+        </div>
+      </div>
+      <div class="map-stop-item">
+        <div class="map-stop-num">2</div>
+        <div class="map-stop-info">
+          <div class="map-stop-name">Dry 85</div>
+          <div class="map-stop-addr">85 Forest Dr · 4:30 PM</div>
+        </div>
+      </div>
+      <div class="map-stop-item">
+        <div class="map-stop-num">3</div>
+        <div class="map-stop-info">
+          <div class="map-stop-name">Ram's Head On Stage</div>
+          <div class="map-stop-addr">33 West St · 6:30 PM</div>
+        </div>
+      </div>
+      <div class="map-stop-item">
+        <div class="map-stop-num" style="color: var(--gold);">4</div>
+        <div class="map-stop-info">
+          <div class="map-stop-name">Stan &amp; Joe's Saloon</div>
+          <div class="map-stop-addr">139 Main St · 7:00 PM</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ══════════════════════════════════════════ LOOT -->
+<div class="section" id="loot">
+  <div class="section-head reveal">
+    <h2>Loot &amp; Rewards</h2>
+    <div class="sh-line"></div>
+    <span class="sh-num">03 / WHAT'S INCLUDED</span>
+  </div>
+
+  <div class="loot-grid">
+    <div class="loot-card reveal reveal-delay-1">
+      <span class="loot-icon">🎟️</span>
+      <div class="loot-name">Crawler Pass</div>
+      <div class="loot-desc">Your official entry badge and points tracker for the evening. Required for all floor access and challenges.</div>
+      <span class="loot-badge">Included with Registration</span>
+    </div>
+    <div class="loot-card reveal reveal-delay-2">
+      <span class="loot-icon">🍺</span>
+      <div class="loot-name">Themed Drinks</div>
+      <div class="loot-desc">Each floor features specially themed "Boss Battle" drinks crafted for the crawl. Details revealed at each stop.</div>
+      <span class="loot-badge">At Each Floor</span>
+    </div>
+    <div class="loot-card reveal reveal-delay-3">
+      <span class="loot-icon">🧠</span>
+      <div class="loot-name">DCC Trivia</div>
+      <div class="loot-desc">Level 1 trivia at The Desperado Club. Test your knowledge of the dungeon. Top scorers earn bonus loot.</div>
+      <span class="loot-badge">Floor 1 — Middleton Tavern</span>
+    </div>
+    <div class="loot-card reveal reveal-delay-4">
+      <span class="loot-icon">👑</span>
+      <div class="loot-name">Costume Contest</div>
+      <div class="loot-desc">The Masquerade at Ram's Head. Best costume wins. Princess Donut judges personally. Dress accordingly.</div>
+      <span class="loot-badge">Floor 3 — Ram's Head</span>
+    </div>
+    <div class="loot-card reveal">
+      <span class="loot-icon">⚔️</span>
+      <div class="loot-name">Boss Battles</div>
+      <div class="loot-desc">Challenge designated Floor Bosses in games of their choosing. Win glory. Lose and face consequences.</div>
+      <span class="loot-badge">Floor 2 — Dry 85</span>
+    </div>
+    <div class="loot-card reveal reveal-delay-1">
+      <span class="loot-icon">📦</span>
+      <div class="loot-name">More Details Soon</div>
+      <div class="loot-desc">Additional loot, prizes, and surprises will be announced as the event approaches. Stay tuned, Crawler.</div>
+      <span class="loot-badge" style="color: var(--warn); border-color: rgba(255,107,0,0.25);">Coming Soon</span>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ══════════════════════════════════════════ ARTWORK -->
+<div class="artwork-section" id="artwork">
+  <div class="section-head reveal" style="max-width:1060px; margin: 0 auto 40px;">
+    <h2>Gallery</h2>
+    <div class="sh-line"></div>
+    <span class="sh-num">04 / DCC ARTWORK</span>
+  </div>
+
+  <div class="artwork-grid">
+    <div class="artwork-slot reveal reveal-delay-1">
+      <span class="artwork-slot-icon">🎨</span>
+      <span class="artwork-slot-label">DCC Artwork Coming Soon</span>
+    </div>
+    <div class="artwork-slot reveal reveal-delay-2">
+      <span class="artwork-slot-icon">🎨</span>
+      <span class="artwork-slot-label">DCC Artwork Coming Soon</span>
+    </div>
+    <div class="artwork-slot reveal reveal-delay-3">
+      <span class="artwork-slot-icon">🎨</span>
+      <span class="artwork-slot-label">DCC Artwork Coming Soon</span>
+    </div>
+  </div>
+
+  <p class="artwork-note reveal">
+    <strong>Artwork slots reserved.</strong> Official DCC artwork will be placed here once permissions are confirmed. Images can be swapped in by replacing the placeholder slots in the HTML.
+  </p>
+</div>
+
+<!-- ══════════════════════════════════════════ REGISTER -->
+<div class="register-section" id="register">
+  <div class="register-eyebrow">⚠ Limited to 50 Crawlers — Do Not Miss This</div>
+  <h2 class="register-title">CLAIM YOUR<br><span>CRAWLER PASS</span></h2>
+  <p class="register-sub">
+    July 25th · Downtown Annapolis, MD<br>
+    <strong>50 slots. Zero exceptions.</strong> The System has spoken.
+  </p>
+  <div class="btn-group">
+    <a href="https://www.eventbrite.com" target="_blank" class="btn-primary">⚔ Register on Eventbrite</a>
+    <a href="#quest-log" class="btn-ghost">View Full Schedule</a>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════ FOOTER -->
+<footer>
+  <div class="footer-logo">DUNGEON BAR CRAWLER CARL</div>
+  <div class="footer-copy">
+    July 25, 2025 · Downtown Annapolis, MD<br>
+    Fan event. Not officially affiliated with Matt Dinniman or the DCC series.<br>
+    Questions? <a href="mailto:hello@dungeonbarcrawlercarl.com">hello@dungeonbarcrawlercarl.com</a>
+  </div>
+</footer>
+
+<script>
+  // ── COUNTDOWN TO JULY 25, 2025 3:00PM ──
+  function updateCountdown() {
+    const target = new Date('2025-07-25T15:00:00');
+    const now = new Date();
+    const diff = target - now;
+
+    if (diff <= 0) {
+      document.getElementById('countdown').textContent = 'FLOOR IS LIVE';
+      return;
+    }
+
+    const d = Math.floor(diff / 86400000);
+    const h = Math.floor((diff % 86400000) / 3600000);
+    const m = Math.floor((diff % 3600000) / 60000);
+    const s = Math.floor((diff % 60000) / 1000);
+
+    const pad = n => String(n).padStart(2, '0');
+    document.getElementById('countdown').textContent =
+      `${d}D ${pad(h)}H ${pad(m)}M ${pad(s)}S`;
+  }
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+
+  // ── SCROLL REVEAL ──
+  const revealEls = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  revealEls.forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
