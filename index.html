@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dungeon Bar Crawler Carl — Annapolis, July 25</title>
+  <title>Dungeon Bar Crawler Carl — Annapolis, July 25, 2026</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Share+Tech+Mono&family=Barlow+Condensed:wght@300;400;600;700;900&display=swap" rel="stylesheet">
   <style>
@@ -468,13 +468,6 @@
       line-height: 1;
       margin-bottom: 6px;
     }
-    .quest-realname {
-      font-size: 0.68rem;
-      color: var(--muted);
-      letter-spacing: 0.12em;
-      margin-bottom: 12px;
-    }
-    .quest-realname::before { content: '📍 '; }
     .quest-activity {
       display: inline-flex; align-items: center; gap: 8px;
       font-size: 0.72rem;
@@ -542,6 +535,75 @@
       font-size: 0.62rem;
       color: var(--muted);
       margin-top: 2px;
+    }
+
+    /* ── MAP: LOCKED STATE ── */
+    .map-locked {
+      background:
+        radial-gradient(ellipse 60% 80% at 50% 50%, rgba(192,57,43,0.10), transparent 70%),
+        repeating-linear-gradient(
+          45deg,
+          transparent,
+          transparent 12px,
+          rgba(26,26,48,0.4) 12px,
+          rgba(26,26,48,0.4) 13px
+        ),
+        var(--panel2);
+      border-top: 1px solid var(--border);
+      padding: 80px 24px 84px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .map-locked::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(26,26,48,0.6) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(26,26,48,0.6) 1px, transparent 1px);
+      background-size: 32px 32px;
+      mask-image: radial-gradient(ellipse 70% 80% at 50% 50%, black 10%, transparent 75%);
+      pointer-events: none;
+    }
+    .map-locked > * { position: relative; z-index: 1; }
+    .map-locked-icon {
+      font-size: 2.4rem;
+      filter: drop-shadow(0 0 18px rgba(192,57,43,0.6));
+      margin-bottom: 18px;
+      opacity: 0.85;
+    }
+    .map-locked-tag {
+      font-family: 'Black Ops One', cursive;
+      font-size: 0.6rem;
+      letter-spacing: 0.3em;
+      color: var(--warn);
+      margin-bottom: 14px;
+    }
+    .map-locked-title {
+      font-family: 'Black Ops One', cursive;
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      color: var(--blood);
+      letter-spacing: 0.15em;
+      text-shadow: 0 0 30px rgba(192,57,43,0.5), 4px 4px 0 rgba(0,0,0,0.8);
+      margin-bottom: 14px;
+    }
+    .map-locked-sub {
+      font-size: 0.78rem;
+      color: var(--text);
+      max-width: 480px;
+      margin: 0 auto 28px;
+      line-height: 1.7;
+      letter-spacing: 0.05em;
+    }
+    .map-locked-meta {
+      font-size: 0.6rem;
+      letter-spacing: 0.3em;
+      color: var(--muted);
+      text-transform: uppercase;
+      border-top: 1px solid var(--border2);
+      padding-top: 18px;
+      max-width: 360px;
+      margin: 0 auto;
     }
 
     /* ── LOOT SECTION ── */
@@ -750,7 +812,7 @@
 <!-- TICKER -->
 <div class="ticker">
   <span class="ticker-inner">
-    ⚠ SYSTEM NOTIFICATION: THE ANNAPOLIS SECTOR IS NOW OPEN — JULY 25TH — 50 CRAWLER SLOTS AVAILABLE — REGISTER NOW OR LOSE YOUR PLACE &nbsp;&nbsp;&nbsp;&nbsp; ◆ &nbsp;&nbsp;&nbsp;&nbsp; ⚠ SYSTEM NOTIFICATION: THE ANNAPOLIS SECTOR IS NOW OPEN — JULY 25TH — 50 CRAWLER SLOTS AVAILABLE — REGISTER NOW OR LOSE YOUR PLACE &nbsp;&nbsp;&nbsp;&nbsp; ◆ &nbsp;&nbsp;&nbsp;&nbsp;
+    ⚠ SYSTEM NOTIFICATION: THE ANNAPOLIS SECTOR IS NOW OPEN — JULY 25TH, 2026 — 50 CRAWLER SLOTS AVAILABLE — REGISTER NOW OR LOSE YOUR PLACE &nbsp;&nbsp;&nbsp;&nbsp; ◆ &nbsp;&nbsp;&nbsp;&nbsp; ⚠ SYSTEM NOTIFICATION: THE ANNAPOLIS SECTOR IS NOW OPEN — JULY 25TH, 2026 — 50 CRAWLER SLOTS AVAILABLE — REGISTER NOW OR LOSE YOUR PLACE &nbsp;&nbsp;&nbsp;&nbsp; ◆ &nbsp;&nbsp;&nbsp;&nbsp;
   </span>
 </div>
 
@@ -778,13 +840,13 @@
 
   <div class="hero-rule"></div>
 
-  <div class="hero-date">July 25th, 2025</div>
+  <div class="hero-date">July 25th, 2026</div>
   <div class="hero-location">📍 Downtown Annapolis, MD &nbsp;·&nbsp; 3:00 PM – Close</div>
 
   <p class="hero-welcome">
     <em>WELCOME, CRAWLERS!</em><br><br>
     The System has cleared a path through the heart of <strong>Downtown Annapolis</strong> for an epic, one-of-a-kind social adventure. We're bringing the world of Dungeon Crawler Carl to life for one afternoon of incredible drinks, great company, and legendary challenges!<br><br>
-    On <strong>July 25th</strong>, join <em>50 fellow fans</em> as we navigate the <strong>"Annapolis Sector."</strong> Whether you're here to test your knowledge in Trivia, show off your best gear in the Costume Contest, or just enjoy the themed "Boss Battle" drinks, there's a place in the party for you.<br><br>
+    On <strong>July 25th, 2026</strong>, join <em>50 fellow fans</em> as we navigate the <strong>"Annapolis Sector."</strong> Whether you're here to test your knowledge in Trivia, show off your best gear in the Costume Contest, or just enjoy the themed "Boss Battle" drinks, there's a place in the party for you.<br><br>
     Space is limited to <strong>50 participants</strong> to keep the experience elite and organized. Grab your Crawler Pass, equip your favorite outfit, and let's make some memories in the dungeon!
   </p>
 
@@ -837,9 +899,8 @@
       </div>
       <div class="quest-body">
         <div class="quest-dungeon">The Desperado Club</div>
-        <div class="quest-bar">Middleton Tavern</div>
-        <div class="quest-realname">2 Market Space, Annapolis, MD</div>
-        <div class="quest-activity">DCC Trivia Level 1 &amp; Registration</div>
+        <div class="quest-bar">LOCATION TBD</div>
+        <div class="quest-activity">Safe Room: Registration and DCC Trivia with prize boxes!</div>
       </div>
     </div>
 
@@ -851,37 +912,34 @@
       </div>
       <div class="quest-body">
         <div class="quest-dungeon">The Hunting Grounds</div>
-        <div class="quest-bar">Dry 85</div>
-        <div class="quest-realname">85 Forest Dr, Annapolis, MD</div>
+        <div class="quest-bar">LOCATION TBD</div>
         <div class="quest-activity">The Grind: Boss Battles &amp; Crafting Tables</div>
       </div>
     </div>
 
     <div class="quest-item reveal reveal-delay-3">
       <div class="quest-time">
-        <div class="quest-time-val">6:30</div>
+        <div class="quest-time-val">6:00</div>
         <div class="quest-time-pm">PM</div>
         <div class="quest-floor-badge">Floor 3</div>
       </div>
       <div class="quest-body">
-        <div class="quest-dungeon">The Grand Stage</div>
-        <div class="quest-bar">Ram's Head On Stage</div>
-        <div class="quest-realname">33 West St, Annapolis, MD</div>
-        <div class="quest-activity">The Masquerade — Costume Contest</div>
+        <div class="quest-dungeon">The Butcher's Masquerade</div>
+        <div class="quest-bar">LOCATION TBD</div>
+        <div class="quest-activity">The Masquerade: Costume Contest</div>
       </div>
     </div>
 
     <div class="quest-item reveal reveal-delay-4" style="border-color: rgba(232,184,75,0.3);">
       <div class="quest-time" style="background: rgba(232,184,75,0.06);">
-        <div class="quest-time-val" style="color: var(--gold); text-shadow: 0 0 15px rgba(232,184,75,0.5);">7:00</div>
+        <div class="quest-time-val" style="color: var(--gold); text-shadow: 0 0 15px rgba(232,184,75,0.5);">7:30</div>
         <div class="quest-time-pm">PM</div>
         <div class="quest-floor-badge" style="color: var(--gold); border-color: rgba(232,184,75,0.3);">Final Floor</div>
       </div>
       <div class="quest-body">
         <div class="quest-dungeon" style="color: var(--gold);">The Pineapple Cabaret</div>
-        <div class="quest-bar">Stan &amp; Joe's Saloon</div>
-        <div class="quest-realname">139 Main St, Annapolis, MD</div>
-        <div class="quest-activity" style="color: var(--gold);">The Final Boss Showdown</div>
+        <div class="quest-bar">LOCATION TBD</div>
+        <div class="quest-activity" style="color: var(--gold);">Wait, how did you find Floor 18??</div>
       </div>
     </div>
 
@@ -903,42 +961,12 @@
       <span class="map-header-title">◆ ANNAPOLIS SECTOR — FLOOR LAYOUT</span>
       <span class="map-header-sub">Downtown Annapolis, MD</span>
     </div>
-    <iframe
-      id="map-frame"
-      loading="lazy"
-      allowfullscreen
-      referrerpolicy="no-referrer-when-downgrade"
-      src="https://www.google.com/maps/embed/v1/directions?key=AIzaSyD-9tSrke72PouQMnMX-a6eAvBvyUGjNy8&origin=2+Market+Space,+Annapolis,+MD&destination=139+Main+St,+Annapolis,+MD&waypoints=85+Forest+Dr,+Annapolis,+MD|33+West+St,+Annapolis,+MD&mode=walking">
-    </iframe>
-    <div class="map-stops-legend">
-      <div class="map-stop-item">
-        <div class="map-stop-num">1</div>
-        <div class="map-stop-info">
-          <div class="map-stop-name">Middleton Tavern</div>
-          <div class="map-stop-addr">2 Market Space · 3:00 PM</div>
-        </div>
-      </div>
-      <div class="map-stop-item">
-        <div class="map-stop-num">2</div>
-        <div class="map-stop-info">
-          <div class="map-stop-name">Dry 85</div>
-          <div class="map-stop-addr">85 Forest Dr · 4:30 PM</div>
-        </div>
-      </div>
-      <div class="map-stop-item">
-        <div class="map-stop-num">3</div>
-        <div class="map-stop-info">
-          <div class="map-stop-name">Ram's Head On Stage</div>
-          <div class="map-stop-addr">33 West St · 6:30 PM</div>
-        </div>
-      </div>
-      <div class="map-stop-item">
-        <div class="map-stop-num" style="color: var(--gold);">4</div>
-        <div class="map-stop-info">
-          <div class="map-stop-name">Stan &amp; Joe's Saloon</div>
-          <div class="map-stop-addr">139 Main St · 7:00 PM</div>
-        </div>
-      </div>
+    <div class="map-locked">
+      <div class="map-locked-icon">🔒</div>
+      <div class="map-locked-tag">&gt;&gt; SECTOR ROUTE — ENCRYPTED</div>
+      <div class="map-locked-title">ROUTE LOCKED</div>
+      <div class="map-locked-sub">Sector coordinates released to ticket holders one week before event.</div>
+      <div class="map-locked-meta">◆ ANNAPOLIS SECTOR · DOWNTOWN PERIMETER ◆</div>
     </div>
   </div>
 </div>
@@ -970,19 +998,19 @@
       <span class="loot-icon">🧠</span>
       <div class="loot-name">DCC Trivia</div>
       <div class="loot-desc">Level 1 trivia at The Desperado Club. Test your knowledge of the dungeon. Top scorers earn bonus loot.</div>
-      <span class="loot-badge">Floor 1 — Middleton Tavern</span>
+      <span class="loot-badge">Floor 1</span>
     </div>
     <div class="loot-card reveal reveal-delay-4">
       <span class="loot-icon">👑</span>
       <div class="loot-name">Costume Contest</div>
-      <div class="loot-desc">The Masquerade at Ram's Head. Best costume wins. Princess Donut judges personally. Dress accordingly.</div>
-      <span class="loot-badge">Floor 3 — Ram's Head</span>
+      <div class="loot-desc">The Masquerade. Best costume wins. Princess Donut judges personally. Dress accordingly.</div>
+      <span class="loot-badge">Floor 3</span>
     </div>
     <div class="loot-card reveal">
       <span class="loot-icon">⚔️</span>
       <div class="loot-name">Boss Battles</div>
       <div class="loot-desc">Challenge designated Floor Bosses in games of their choosing. Win glory. Lose and face consequences.</div>
-      <span class="loot-badge">Floor 2 — Dry 85</span>
+      <span class="loot-badge">Floor 2</span>
     </div>
     <div class="loot-card reveal reveal-delay-1">
       <span class="loot-icon">📦</span>
@@ -1028,7 +1056,7 @@
   <div class="register-eyebrow">⚠ Limited to 50 Crawlers — Do Not Miss This</div>
   <h2 class="register-title">CLAIM YOUR<br><span>CRAWLER PASS</span></h2>
   <p class="register-sub">
-    July 25th · Downtown Annapolis, MD<br>
+    July 25th, 2026 · Downtown Annapolis, MD<br>
     <strong>50 slots. Zero exceptions.</strong> The System has spoken.
   </p>
   <div class="btn-group">
@@ -1041,16 +1069,15 @@
 <footer>
   <div class="footer-logo">DUNGEON BAR CRAWLER CARL</div>
   <div class="footer-copy">
-    July 25, 2025 · Downtown Annapolis, MD<br>
-    Fan event. Not officially affiliated with Matt Dinniman or the DCC series.<br>
-    Questions? <a href="mailto:hello@dungeonbarcrawlercarl.com">hello@dungeonbarcrawlercarl.com</a>
+    July 25, 2026 · Downtown Annapolis, MD<br>
+    Fan event. Not officially affiliated with Matt Dinniman or the DCC series.
   </div>
 </footer>
 
 <script>
-  // ── COUNTDOWN TO JULY 25, 2025 3:00PM ──
+  // ── COUNTDOWN TO JULY 25, 2026 3:00PM ──
   function updateCountdown() {
-    const target = new Date('2025-07-25T15:00:00');
+    const target = new Date('2026-07-25T15:00:00');
     const now = new Date();
     const diff = target - now;
 
